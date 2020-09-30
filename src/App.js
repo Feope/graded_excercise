@@ -1,6 +1,7 @@
 import React from 'react';
 import Login from './components/Login'
 import Account from './components/Account'
+import axios from 'axios';
 import './App.css';
 
 class App extends React.Component{
@@ -8,11 +9,22 @@ class App extends React.Component{
   {
     super(props);
     this.state = {
+      content: [],
       loggedIn: false,
       accountOpen: false,
     }
   }
 
+  componentDidMount = () =>
+  {    
+    axios.get('http://localhost:4000/content').then(result => {
+      this.setState({ content: result.data });
+    })
+    .catch(error => {
+      console.error(error);
+      this.setState({ networkError: true })
+    })
+  }
 
   render()
   {
@@ -36,7 +48,7 @@ class App extends React.Component{
           </div>
           <Login/>
           <button onClick={ () => this.setState({accountOpen: !this.state.accountOpen}) }>Account</button>
-          <Account/>
+          <Account info={ this.state.content } />
         </>
       }
       else{
