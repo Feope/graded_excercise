@@ -28,8 +28,22 @@ button{
     position: fixed; 
     background-color: lightgrey; 
     left: 50%; 
-    margin-top: -15px;
+
     margin-left: -100px; 
     border-radius: 6px;
     padding: 2px;
+}
+
+.searchview{
+    float: left;
+    width:200px; 
+    height: 400px;
+    position: fixed; 
+    background-color: lightgrey; 
+    left: 50%; 
+    margin-top: 30px;
+    margin-left: -100px; 
+    border-radius: 6px;
+    padding: 2px;
+    overflow: scroll;
 }
