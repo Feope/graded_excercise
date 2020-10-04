@@ -1,15 +1,11 @@
 import React from 'react'
 
 export default function Allsearch(props) {
-    const handleClick = (id) => {
-        console.log('Click happened' + id);
-      }
-
     return (
         <div>
             <div className="searchview">
                 { props.content.map((item, id) =>
-                <div key={id} onClick={() => handleClick(id)}>
+                <div key={id} onClick={() => props.handleClick(item.id, item.name, item.price)}>
                     name:"{item.name}"  <br/>
                     type:"{item.type}" 
                     status:"{item.status}" 

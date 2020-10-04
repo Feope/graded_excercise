@@ -5,9 +5,9 @@ import SearchResult from './Searchresult';
 export default function Searchview(props) {
     return (
         <div>
-            <div>
+            <div >
             {
-                props.content.map(content => <SearchResult key={content.id} {...content} />)
+                props.content.map(content => <SearchResult key={content.id} {...content} handleClick={ props.handleClick } />)
             }
             </div>
         </div>
