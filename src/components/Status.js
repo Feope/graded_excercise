@@ -9,7 +9,7 @@ export default function Status(props) {
                     <br/>
                 Price:"{ Math.round(item.currentPrice)} cents" Time charging:"{props.time} seconds" <br/>
                 </div>)}
-                <button onClick={() => props.timer()}> Start </button>
+                <button onClick={() => props.timer()}> { props.StartToStop() } </button>
         </div>
     )
 }

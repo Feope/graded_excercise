@@ -4,12 +4,14 @@ export default function Account(props) {
     return (
         <div className="accountWindow" >
             <div>
-                Account info
+                Account history <br/><br/>
             </div>
             <div>
-                { props.info.map((item, id) =>
+            { props.history.map((item, id) =>
                 <div key={id}>
-                    {item.name}
+                    Name:"{item.name}"  <br/>
+                    Total price:"{item.currentPrice} cents" 
+                    Price per minute:"{item.price} cents" <br/><br/>
                 </div>)}
             </div>
         </div>

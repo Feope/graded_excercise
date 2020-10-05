@@ -43,7 +43,7 @@ class App extends React.Component{
 
   handleClick = (id, name, price) => {
     console.log('Click happened ' + id + ' ' + name);
-    const data = [{"id": id,"name": name,"price": price, currentPrice: 0}];
+    const data = [{"id": id,"name": name,"price": price, "currentPrice": 0}];
     this.setState({ charger: data });
     this.setState({ chargerTaken: true });
   }
@@ -59,11 +59,12 @@ class App extends React.Component{
         clearInterval(this.state.time);
         this.setState({ charging: false });
         var newHistory = this.state.history;
-        newHistory.push(this.state.charger);
+        newHistory.push(this.state.charger[0]);
         this.setState({history: newHistory})
         this.setState({secondsPassed: 0})
         this.setState({charger: []})
         console.log(this.state.history);
+        console.log(this.state.content);
       }
     }
   }
@@ -79,20 +80,40 @@ class App extends React.Component{
     }
   }
 
+  changeStartToStop = () =>{
+    if(this.state.charging === true){
+      return "Stop"
+    }
+    else{
+      return "Start"
+    }
+  }
+
   render()
   {
-    let output = 
+    let chargerOutput = 
       <>
-        <button onClick={ () => this.setState({loggedIn: !this.state.loggedIn}) }>Login</button>
+      </>
+
+    let output =
+      <>
+        <button onClick={ () => this.setState({loggedIn: !this.state.loggedIn}) }>Login</button>  
+        <Login/>
       </>
 
     if( this.state.chargerTaken === true)
     {
-      output = 
+      if(this.state.charger.length < 1){
+        chargerOutput = 
         <>
-          <button onClick={ () => this.setState({loggedIn: !this.state.loggedIn}) }>Login</button>
-          <Status charger={ this.state.charger } time={ this.state.secondsPassed } timer={ this.timer }/>
         </>
+      }
+      else{
+        chargerOutput = 
+        <>
+          <Status charger={ this.state.charger } time={ this.state.secondsPassed } timer={ this.timer } StartToStop={ this.changeStartToStop }/>
+        </>
+      }
     }
 
     let searchOutput =
@@ -122,7 +143,7 @@ class App extends React.Component{
           <button onClick={ () => this.setState({loggedIn: !this.state.loggedIn}) }>Logout</button>
           <Login/>
           <button onClick={ () => this.setState({accountOpen: !this.state.accountOpen}) }>Account</button>
-          <Account info={ this.state.content } />
+          <Account info={ this.state.content } history={ this.state.history }/>
         </>
       }
       else{
@@ -138,6 +159,7 @@ class App extends React.Component{
     return (
       <>
         { searchOutput }
+        { chargerOutput }
         { output }
       </>
     )
