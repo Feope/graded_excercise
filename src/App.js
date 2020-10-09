@@ -1,9 +1,10 @@
 import React from 'react';
-import Login from './components/Login'
-import Account from './components/Account'
-import Searchview from './components/Searchview'
-import Allsearch from './components/Allsearch'
-import Status from './components/Status'
+import Login from './components/Login';
+import Account from './components/Account';
+import Searchview from './components/Searchview';
+import Allsearch from './components/Allsearch';
+import Status from './components/Status';
+import LoginButton from './components/LoginButton';
 import axios from 'axios';
 import './App.css';
 
@@ -15,8 +16,11 @@ class App extends React.Component{
       content: [],
       charger: [],
       history: [],
+      user: "",
+      password: "",
       chargerTaken: false,
       charging: false,
+      logState: "Login",
       productSearchString: "",
       loggedIn: false,
       accountOpen: false,
@@ -41,11 +45,22 @@ class App extends React.Component{
     this.setState({ productSearchString: event.target.value });
   }
 
-  handleClick = (id, name, price) => {
-    console.log('Click happened ' + id + ' ' + name);
-    const data = [{"id": id,"name": name,"price": price, "currentPrice": 0}];
-    this.setState({ charger: data });
-    this.setState({ chargerTaken: true });
+  handleClick = (id, name, price, status) => {
+    if(status === "taken"){
+      alert("This charger is currently occupied!")
+    }
+    else{
+      if(this.state.loggedIn === true){
+        console.log('Click happened ' + id + ' ' + name);
+        var date = String(new Date());
+        const data = [{"id": id,"name": name,"price": price, "currentPrice": 0, "date": date}];
+        this.setState({ charger: data });
+        this.setState({ chargerTaken: true });
+      }
+      else{
+        alert("Please login first!")
+      }
+    }
   }
 
   timer = () => {
@@ -89,6 +104,33 @@ class App extends React.Component{
     }
   }
 
+  updateUser = (event) =>{
+    this.setState({user: event.target.value});
+    console.log(this.state.user);
+  }
+
+  updatePassword = (event) =>{
+    this.setState({password: event.target.value});
+    console.log(this.state.password);
+  }
+
+  login = () =>{
+    if(this.state.logState === "Logout" && this.state.charging === true){
+      alert("Please stop charging first!")
+    }
+    else if(this.state.logState === "Logout"){
+      this.setState({logState: "Login"});
+      this.setState({loggedIn: false});
+    }
+    else if(this.state.user === "user" && this.state.password ==="password"){
+      this.setState({logState: "Logout"});
+      this.setState({loggedIn: true});
+    }
+    else{
+      alert("Password or Username incorrect, the question mark can help you.")
+    }
+  }
+
   render()
   {
     let chargerOutput = 
@@ -97,8 +139,8 @@ class App extends React.Component{
 
     let output =
       <>
-        <button onClick={ () => this.setState({loggedIn: !this.state.loggedIn}) }>Login</button>  
-        <Login/>
+        <LoginButton logState={this.state.logState} login={this.login} />  
+        <Login user={ this.state.user } password={ this.state.password } updateUser={ this.updateUser } updatePassword={ this.updatePassword } />
       </>
 
     if( this.state.chargerTaken === true)
@@ -140,8 +182,7 @@ class App extends React.Component{
       {
         output = 
         <>
-          <button onClick={ () => this.setState({loggedIn: !this.state.loggedIn}) }>Logout</button>
-          <Login/>
+          <LoginButton logState={this.state.logState} login={this.login} />
           <button onClick={ () => this.setState({accountOpen: !this.state.accountOpen}) }>Account</button>
           <Account info={ this.state.content } history={ this.state.history }/>
         </>
@@ -149,8 +190,7 @@ class App extends React.Component{
       else{
         output = 
         <>
-          <button onClick={ () => this.setState({loggedIn: !this.state.loggedIn}) }>Logout</button>
-          <Login/>
+          <LoginButton logState={this.state.logState} login={this.login} />
           <button onClick={ () => this.setState({accountOpen: !this.state.accountOpen}) }>Account</button>
         </>
       }

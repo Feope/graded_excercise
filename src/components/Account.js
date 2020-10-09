@@ -10,6 +10,7 @@ export default function Account(props) {
             { props.history.map((item, id) =>
                 <div key={id}>
                     Name:"{item.name}"  <br/>
+                    { item.date } <br/>
                     Total price:"{item.currentPrice} cents" 
                     Price per minute:"{item.price} cents" <br/><br/>
                 </div>)}
