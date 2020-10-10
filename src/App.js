@@ -31,7 +31,7 @@ class App extends React.Component{
 
   componentDidMount = () =>
   {    
-    axios.get('http://localhost:4000/content').then(result => {
+    axios.get('http://52.90.195.123/content').then(result => {
       this.setState({ content: result.data });
     })
     .catch(error => {
