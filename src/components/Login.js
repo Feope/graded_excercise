@@ -10,8 +10,8 @@ export default function Login(props) {
         <div className="loginWindow">
             <div>
                 <div onClick={() => log()} className="loginHint">?</div>
-                <p>Username <input type="text" value={props.user} onInput={props.updateUser} /></p>
-                <p>Password <input type="password" value={props.password} onInput={props.updatePassword} /></p>
+                <p>Username <input type="text" value={props.user} onChange={props.updateUser} /></p>
+                <p>Password <input type="password" value={props.password} onChange={props.updatePassword} /></p>
             </div>
         </div>
     )

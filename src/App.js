@@ -5,6 +5,7 @@ import Searchview from './components/Searchview';
 import Allsearch from './components/Allsearch';
 import Status from './components/Status';
 import LoginButton from './components/LoginButton';
+import finland2 from './finland2.png';
 import axios from 'axios';
 import './App.css';
 
@@ -42,12 +43,17 @@ class App extends React.Component{
   onSearchFieldChange = (event) => {
     console.log('Keyboard event');
     console.log(event.target.value);
-    this.setState({ productSearchString: event.target.value });
+    var uppercase = event.target.value.toUpperCase();
+    console.log(uppercase);
+    this.setState({ productSearchString: uppercase });
   }
 
   handleClick = (id, name, price, status) => {
     if(status === "taken"){
       alert("This charger is currently occupied!")
+    }
+    else if(this.state.charging === true){
+      alert("You are already charging somewhere else!");
     }
     else{
       if(this.state.loggedIn === true){
@@ -183,7 +189,7 @@ class App extends React.Component{
         output = 
         <>
           <LoginButton logState={this.state.logState} login={this.login} />
-          <button onClick={ () => this.setState({accountOpen: !this.state.accountOpen}) }>Account</button>
+          <button className="accountButton" onClick={ () => this.setState({accountOpen: !this.state.accountOpen}) }>Account</button>
           <Account info={ this.state.content } history={ this.state.history }/>
         </>
       }
@@ -191,7 +197,7 @@ class App extends React.Component{
         output = 
         <>
           <LoginButton logState={this.state.logState} login={this.login} />
-          <button onClick={ () => this.setState({accountOpen: !this.state.accountOpen}) }>Account</button>
+          <button className="accountButton" onClick={ () => this.setState({accountOpen: !this.state.accountOpen}) }>Account</button>
         </>
       }
     }
@@ -201,6 +207,7 @@ class App extends React.Component{
         { searchOutput }
         { chargerOutput }
         { output }
+        { <img className="imagery" alt="Finland" src={finland2}></img> }
       </>
     )
   }

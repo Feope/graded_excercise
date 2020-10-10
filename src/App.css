@@ -1,8 +1,3 @@
-body{
-    background-image: url("/images/finland.png");
-    background-position: top;
-    background-size: 100vw;
-}
 
 button{
     border-radius: 5px;
@@ -29,7 +24,7 @@ button{
     float: left;
     clear: both;
     width:200px; 
-    position: fixed; 
+    position: absolute; 
     background-color: lightgrey; 
     left: 630px; 
     margin-left: -100px; 
@@ -43,7 +38,7 @@ button{
     clear: both;
     width:200px; 
     height: 400px;
-    position: fixed; 
+    position: absolute; 
     cursor: pointer;
     background-color: lightgrey; 
     left: 630px; 
@@ -58,7 +53,7 @@ button{
 .statusWindow{
     float: left;
     clear: both;
-    position: fixed;
+    position: absolute;
     left: 180px;
     top: 22px;
     max-width: fit-content;
@@ -85,3 +80,13 @@ button{
     font-weight: lighter;
     position: relative;
 }
+
+.imagery{
+    float: left;
+    clear: both;
+    height: 1000px;
+    position: absolute;
+    top: -5px;
+    left: 700px;
+}
+
